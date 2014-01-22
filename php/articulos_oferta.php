@@ -1,20 +1,18 @@
 <?php
-	$id = $_POST["id"];
-	
-    $db = mysql_connect("localhost","root","") or die("Connection Error: " . mysql_error());
-    mysql_select_db("tienda") or die("Error conecting to db.");
-    
-	$SQL = "SELECT * from articulos where id = '$id';"; 
-    $result = mysql_query( $SQL ) or die("Couldn t execute query.".mysql_error());
-	//$datos[];
-	$i=0;
-    while($fila = mysql_fetch_array($result,MYSQL_ASSOC)) 
-	{
-		$datos[$i]=array('cod'=>$fila["cod"],'nombre'=>$fila["nombre"],'precio'=>$fila["precio"],'id'=>$fila["id"]);
-		$i++;
-	}
-		
-	header('Content-type: application/json');
-	echo json_encode($datos);
-	
+
+$id = $_POST["id"];
+
+$db = mysql_connect("localhost", "root", "") or die("Connection Error: " . mysql_error());
+mysql_select_db("proyecto1_tienda_servidor") or die("Error conecting to db.");
+
+$SQL = "SELECT * from articulos where idCategorias = '$id';";
+$result = mysql_query($SQL) or die("Couldn t execute query." . mysql_error());
+$i = 0;
+while ($fila = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    $datos[$i] = array('idArticulo' => $fila["idArticulo"], 'nombreArticulo' => $fila["nombreArticulo"], 'precioArticulo' => $fila["precioArticulo"], 'idCategorias' => $fila["idCategorias"]);
+    $i++;
+}
+
+header('Content-type: application/json');
+echo json_encode($datos);
 ?>
