@@ -34,7 +34,7 @@
                     datos = '<h3>Categorias</h3><ul class="nav nav-stacked nav-pills"><form ><ul class="list-2">';
                     $variable = 0;
                     $.each(data, function(index) {
-                        datos += '<li><input type="checkbox" name="id" value="' + data[index].idCategoria + '" >' + data[index].nombreCategoria + '</input></li>';
+                        datos += '<li><input type="checkbox" name="id'+index+'" value="' + data[index].idCategoria + '" >' + data[index].nombreCategoria + '</input></li>';
                     });
                     datos+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
                     datos+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";

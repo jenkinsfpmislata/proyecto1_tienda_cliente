@@ -7,15 +7,17 @@ $idCategorias = "";
 $precio_min = "";
 $precio_max = "";
 $ord_precio =" ";
-$j = 0;
+$j =0;
+$variable_id = 0;
 foreach ($_POST as $nombre_campo => $valor) {
-    if ($nombre_campo == "id") {
+    if ($nombre_campo == "id".$variable_id) {
         if ($j == 0) {
             $idCategorias = $idCategorias . $valor;
             $j++;
         } else {
             $idCategorias = $idCategorias . ',' . $valor;
         }
+        $variable_id++;
     }elseif($nombre_campo == "precio_min"){
         $precio_min = $valor;
     }elseif($nombre_campo == "precio_max"){
