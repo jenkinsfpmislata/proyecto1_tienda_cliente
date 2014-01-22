@@ -34,10 +34,10 @@
                     datos = '<h3>Categorias</h3><ul class="nav nav-stacked nav-pills"><form ><ul class="list-2">';
                     $variable = 0;
                     $.each(data, function(index) {
-                        datos += '<li><input type="checkbox" name="id" value="' + data[index].idCategoria + '">' + data[index].nombreCategoria + '</input></li>';
+                        datos += '<li><input type="checkbox" name="id" value="' + data[index].idCategoria + '" >' + data[index].nombreCategoria + '</input></li>';
                     });
-                    datos += "<li><select name='precio_min'><option value='0' selected>0 €</option><option value='50'>50 €</option><option value='100'>100 €</option><option value='150'>150 €</option><option value='200'>200 €</option></select>";
-                    datos += "<select name='precio_max'><option value='0'>0 €</option><option value='50'>50 €</option><option value='100'>100 €</option><option value='150'>150 €</option><option value='200' selected>200 €</option></select></li>";
+                    datos+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
+                    datos+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
                     datos += '<a href="javascript:articulos()"><input type="button" value="Submit"></a></ul></form>';
                     $('#categorias').html(datos);
 
@@ -69,7 +69,6 @@
         function articulos() {
 
             var str = $("form").serialize();
-            alert(str);
             $.ajax({
                 dataType: 'json',
                 url: 'php/articulos.php',
