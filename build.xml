@@ -7,7 +7,7 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Densetech_Administracion" default="desplegarProduccion" basedir=".">
+<project name="Densetech" default="desplegarProduccion" basedir=".">
   
     <target name="desplegarProduccion">
         <property file="/home/jenkins/environment/proyecto1/proyecto1_tienda_cliente.properties"></property>
