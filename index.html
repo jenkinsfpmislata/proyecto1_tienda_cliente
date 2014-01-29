@@ -18,7 +18,6 @@
         <script type="text/javascript"> Cufon.now();</script>
         <script type="text/javascript">
             $(document).ready(function() {
-
                 $.ajax({
                     dataType: 'json',
                     url: 'php/slider.php',
@@ -28,7 +27,7 @@
                             datos += '<li><img src="images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" alt=""/></li>';
                         });
                         datos += '</ul>';
-
+                        
                         $('#carrousel').html(datos);
 
                         $('.slider')._TMS({
@@ -72,20 +71,8 @@
                     <div class="wrapper">
                         <div class="slider-wrapper">
                             <div class="slider" id="carrousel">
-                                <!----Slider----->
-                            </div>
-                            <a class="prev" href="#"></a>
-                            <a class="next" href="#"></a>
-                        </div>
-                        <div class="extra-wrap">
-                            <div class="indent">
-                                <strong class="title-1">Best</strong>
-                                <strong class="title-2">Professional Soft</strong>
-                                <p class="img-indent-bot">Software is one of <a class="link" target="_blank" href="http://blog.templatemonster.com/free-website-templates/">free web templates</a> created by TemplateMonster team.<br> This website template is optimized for 1280X1024 screen resolution. It is also XHTML &amp; CSS valid.</p>
-                                <div class="aligncenter">
-                                    <a class="button" href="#">Read More</a>
-                                </div>
-                            </div>
+                        <!----Slider---->
+                            </div><a class="prev" href="#"></a><a class="next" href="#"></a>
                         </div>
                     </div>
                 </header>

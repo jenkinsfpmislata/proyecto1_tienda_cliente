@@ -29,6 +29,7 @@ a:hover {text-decoration:none;}
 .col-1, .col-2 {float:left;}
 
 .wrapper {width:100%; overflow:hidden;}
+.wrapper-slider{width:100%; overflow:hidden; position: relative; padding-left: 150px;}
 .extra-wrap {overflow:hidden;}
  
 p {margin-bottom:18px;}

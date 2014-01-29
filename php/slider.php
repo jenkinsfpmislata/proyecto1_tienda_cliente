@@ -7,7 +7,7 @@ $SQL = "SELECT * from articulos";
 $result = mysql_query($SQL) or die("Couldn t execute query." . mysql_error());
 $i = 0;
 while ($fila = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $datos[$i] = array('idArticulo' => $fila["idArticulo"], 'nombreArticulo' => $fila["nombreArticulo"], 'precioArticulo' => $fila["precioArticulo"], 'idCategorias' => $fila["idCategorias"]);
+    $datos[$i] = array('idArticulo' => $fila["idArticulo"], 'nombreArticulo' => $fila["nombreArticulo"], 'precioArticulo' => $fila["precioArticulo"],'descripcionArticulo' => $fila["descripcionArticulo"], 'idCategorias' => $fila["idCategorias"]);
     $i++;
 }
 
