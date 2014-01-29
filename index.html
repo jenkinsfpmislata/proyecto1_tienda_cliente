@@ -39,10 +39,8 @@
                     </nav>
                     <div class="wrapper">
                         <div class="slider-wrapper">
-                            <div class="slider">
-                                <ul class="items" id="carrousel">
-                                    <!----Slider----->
-                                </ul>
+                            <div class="slider"  id="carrousel">
+                                <!----Slider----->
                             </div>
                             <a class="prev" href="#"></a>
                             <a class="next" href="#"></a>
@@ -183,20 +181,8 @@
         </footer>
         <script type="text/javascript"> Cufon.now();</script>
         <script type="text/javascript">
-            $(window).load(function()
-            {
-                $.ajax({
-                    dataType: 'json',
-                    url: 'php/slider.php',
-                    success: function(data) {
-                        datos = "";
-                        $.each(data, function(index) {
-                            datos += '<li><img src="images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" alt="" width="425px" height="267px"/></li>';
-                        });
-                        alert(datos);
-                        $('#carrousel').html(datos);
-                    }
-                });
+            $(document).ready(function() {
+
                 $('.slider')._TMS({
                     duration: 800,
                     easing: 'easeOutQuad',
@@ -207,6 +193,19 @@
                     pagination: false,
                     nextBu: '.next',
                     prevBu: '.prev'
+                });
+                $.ajax({
+                    dataType: 'json',
+                    url: 'php/slider.php',
+                    success: function(data) {
+                        datos = '<ul class="items">';
+                        $.each(data, function(index) {
+                            datos += '<li><img src="images/slider-img1.jpg" alt="" width="auto" height="auto"/></li>';
+                        });
+                        datos += '</ul>';
+                        alert(datos);
+                        $('#carrousel').html(datos);
+                    }
                 });
             });
         </script>
