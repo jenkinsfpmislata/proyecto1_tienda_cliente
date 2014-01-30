@@ -51,7 +51,7 @@
                 type: 'POST',
                 data: 'id=1',
                 success: function(data) {
-                    datos2 = '<div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot"><table class="table table-hover" ><th><tr><td>Nombre</td><td>Descripcion</td><td>Precio</td></tr></th><tb>';
+                    datos2 = '<div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot"><table class="table"><th><tr><td>Nombre</td><td>Descripcion</td><td>Precio</td></tr></th><tb>';
                     $.each(data, function(index) {
                         datos2+= '<tr>';
                         datos2 += '<td>' + data[index].nombreArticulo + ' </td><td> ' + data[index].descripcionArticulo +' </td><td> ' + data[index].precioArticulo + '</td>';
@@ -76,14 +76,14 @@
                 type: 'POST',
                 data: str,
                 success: function(data) {
-                    datos = '<div class="row"> <h3 class="p1">Articulos </h3> <div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot">';
+                    datos2 = '<div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot"><table class="table table-hover ><th><tr><td>Nombre</td><td>Descripcion</td><td>Precio</td></tr></th><tb>';
                     $.each(data, function(index) {
-
-                        datos += '<div class="col-md-4 col-sm-4">' + data[index].nombreArticulo + '  ' + data[index].descripcionArticulo +'  ' + data[index].precioArticulo + '</div><br>';
+                        datos2+= '<tr>';
+                        datos2 += '<td>' + data[index].nombreArticulo + ' </td><td> ' + data[index].descripcionArticulo +' </td><td> ' + data[index].precioArticulo + '</td>';
+                        datos2+='</tr>';
                     });
-                    datos += '</div>';
-
-                    $('#contenido_categorias').html(datos);
+                    datos2 += '</tb></table></div>';
+                    $('#oferta').html(datos2);
 
                 }
 
