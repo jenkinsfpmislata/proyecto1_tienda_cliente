@@ -98,8 +98,10 @@ h1 {
 }
 	h1 a {
 		display:block; 
-		width:211px;
-		height:38px;
+		/*width:211px;*/
+		/*height:38px;*/
+                width:10px;
+		height:10px;
 		text-indent:-9999em;
 		background:url(../images/logo.png) 0 0 no-repeat;
 	}
