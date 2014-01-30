@@ -66,6 +66,22 @@
                 }
 
             });
+            $.ajax({
+                dataType: 'json',
+                url: 'php/buscar.php',
+                success: function(data) {
+                    datos = '<h3>Categorias</h3><ul class="nav nav-stacked nav-pills"><form ><ul class="list-2">';
+                    $.each(data, function(index) {
+                        datos += '<li><input type="checkbox" name="id'+index+'" value="' + data[index].idCategoria + '" >' + data[index].nombreCategoria + '</input></li>';
+                    });
+                    datos+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
+                    datos+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos += '<a href="javascript:articulos()"><input type="button" value="Submit"></a></ul></form>';
+                    $('#filtro').html(datos);
+
+                }
+
+            });
 
         }
         function unarticulo(idArticulo) {
@@ -78,7 +94,9 @@
                     datos2 = '';
                     $.each(data, function(index) {
                         datos2 += '<article ><div class="box" style="height:500px;"><div class="padding"><div ><div class="padding-left">';
-                        datos2 += '<h3  class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3><p></p>';
+                        datos2 += '<h3 class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3>';
+                        datos2 +='<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
+                        datos2 +='<div class="box descripcionArticulo"><p style="padding:20px;">'+data[index].descripcionArticulo+'</p></div>';
                         datos2 += '<a href="#"><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
@@ -118,6 +136,7 @@
                 <!--==============================content================================-->
                 <section id="content">
                     <div class="container_12">
+                        <div class="wrapper" id="filtro"></div>
                         <div class="wrapper" id="contenido-categorias">
                             <article class="grid_4" id="categorias">
                                 <!----------Categorias------------->
