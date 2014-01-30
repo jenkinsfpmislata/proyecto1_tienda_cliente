@@ -168,6 +168,9 @@ h1 {
     width:425px;
     height:267px;
 }
+#slideshow{
+    padding-left: 150px;
+}
 .items {display:none;}
 
 .next,
