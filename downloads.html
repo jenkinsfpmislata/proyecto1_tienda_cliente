@@ -31,59 +31,59 @@
                 dataType: 'json',
                 url: 'php/categorias.php',
                 success: function(data) {
-                    datos = '<h3>Categorias</h3><ul class="nav nav-stacked nav-pills"><form ><ul class="list-2">';
-                    $variable = 0;
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Categorias</strong></h3></center>';
                     $.each(data, function(index) {
-                        datos += '<li>' + data[index].nombreCategoria + '<input type="checkbox" name="id'+index+'" value="' + data[index].idCategoria + '" /></li>';
+                        datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                        datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                        datos2 += '</div></div></div></article></a>';
                     });
-                    datos+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
-                    datos+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
-                    datos += '<a href="javascript:articulos()"><input type="button" value="Submit"></a></ul></form>';
-                    $('#categorias').html(datos);
-
-                }
-
-            });
-
-            $.ajax({
-                dataType: 'json',
-                url: 'php/articulos_oferta.php',
-                type: 'POST',
-                data: 'id=1',
-                success: function(data) {
-                    datos2 = '<div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot"><table class="table"><th><tr><td>Nombre</td><td>Descripcion</td><td>Precio</td></tr></th><tb>';
-                    $.each(data, function(index) {
-                        datos2+= '<tr>';
-                        datos2 += '<td>' + data[index].nombreArticulo + ' </td><td> ' + data[index].descripcionArticulo +' </td><td> ' + data[index].precioArticulo + '</td>';
-                        datos2+='</tr>';
-                    });
-                    datos2 += '</tb></table></div>';
-                    $('#oferta').html(datos2);
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
 
                 }
 
             });
 
         });
-
-
-        function articulos() {
-
-            var str = $("form").serialize();
+        function articulos(idCategorias) {
             $.ajax({
                 dataType: 'json',
                 url: 'php/articulos.php',
                 type: 'POST',
-                data: str,
+                data: "idCategorias=" + idCategorias,
                 success: function(data) {
-                    datos2 = '<div class="indent-left2 indent-top2" ><h6 class="prev-indent-bot"><table class="table table-hover ><th><tr><td>Nombre</td><td>Descripcion</td><td>Precio</td></tr></th><tb>';
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
                     $.each(data, function(index) {
-                        datos2+= '<tr>';
-                        datos2 += '<td>' + data[index].nombreArticulo + ' </td><td> ' + data[index].descripcionArticulo +' </td><td> ' + data[index].precioArticulo + '</td>';
-                        datos2+='</tr>';
+                        datos2 += '<a href="javascript:unarticulo(' + data[index].idArticulo + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3 class="p1">' + data[index].nombreArticulo + '</h3><br><h6>' + data[index].precioArticulo + '&euro;</h6><p></p>';
+                        datos2 += '<a href="#"><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_productos"></img></a>';
+                        datos2 += '</div></div></div></article></a>';
                     });
-                    datos2 += '</tb></table></div>';
-                    $('#oferta').html(datos2);
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
+
+                }
+
+            });
+
+        }
+        function unarticulo(idArticulo) {
+            $.ajax({
+                dataType: 'json',
+                url: 'php/unarticulo.php',
+                type: 'POST',
+                data: "idArticulo=" + idArticulo,
+                success: function(data) {
+                    datos2 = '';
+                    $.each(data, function(index) {
+                        datos2 += '<article ><div class="box" style="height:500px;"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3  class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3><p></p>';
+                        datos2 += '<a href="#"><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
+                        datos2 += '</div></div></div></article>';
+                    });
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
 
                 }
 
@@ -97,7 +97,7 @@
             <div class="main">
                 <!--==============================header=================================-->
                 <header>
-                    <div class="wrapper p2">
+                    <div class="wrapper p2" >
                         <h1><a href="index.html" id="logo">Software</a></h1>
                         <ul class="list-services">
                             <li><a href="#">Site Map</a></li>
@@ -118,21 +118,9 @@
                 <!--==============================content================================-->
                 <section id="content">
                     <div class="container_12">
-                        <div class="wrapper">
-                            <article class="grid_4">
-                                <div class="box-2">
-                                    <div class="padding">
-                                        <h3 class="p1" id="categorias">Downloads</h3>
-                                        <!----------Categorias------------->
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="grid_8"id="contenido_categorias">
-                                <h3 class="p1">Articulos en Oferta</h3>
-                                <div class="indent-left2 indent-top2" id="oferta" >
-
-                                    <!-----------Arituclos------------>
-                                </div>
+                        <div class="wrapper" id="contenido-categorias">
+                            <article class="grid_4" id="categorias">
+                                <!----------Categorias------------->
                             </article>
                         </div>
                     </div>
