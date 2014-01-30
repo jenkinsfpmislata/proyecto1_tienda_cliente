@@ -43,11 +43,11 @@
                 data: "idCategorias=" + idCategorias,
                 success: function(data) {
                     datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
-                    datos2 = ' <div class="wrapper"><article class="grid"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form ><ul class="list-2">';
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
                     datos2+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
                     datos2+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
-                    datos2 += '<a href="javascript:filtro()"><input type="button" value="Submit"></a></ul></form>';
-                    datos2 += '</div></article></div>';
+                    datos2 += '<a href="javascript:filtro('+idCategorias+')"><input type="button" value="Submit"></a></ul></form>';
+                    datos2 += '</div></div>';
                     $.each(data, function(index) {
                         datos2 += '<a href="javascript:unarticulo(' + data[index].idArticulo + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
                         datos2 += '<h3 class="p1">' + data[index].nombreArticulo + '</h3><br><h6>' + data[index].precioArticulo + '&euro;</h6><p></p>';
@@ -63,13 +63,29 @@
             
 
         }
-        function filtro(){
+        function filtro(idCategorias){
+            var formulario= $("form").serialize();
             $.ajax({
-                dataType: 'json',
+                dataType : 'json',
                 url: 'php/filtar.php',
+                type: 'POST',
+                data : "idCategorias="+idCategorias+"&" +formulario,
                 success: function(data) {
-                    
-                    $('#filtro').html(datos);
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
+                    datos2+="<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
+                    datos2+="<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos2 += '<a href="javascript:filtro('+idCategorias+')"><input type="button" value="Submit"></a></ul></form>';
+                    datos2 += '</div></div>';
+                    $.each(data, function(index) {
+                        datos2 += '<a href="javascript:unarticulo(' + data[index].idArticulo + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3 class="p1">' + data[index].nombreArticulo + '</h3><br><h6>' + data[index].precioArticulo + '&euro;</h6><p></p>';
+                        datos2 += '<a href="#"><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_productos"></img></a>';
+                        datos2 += '</div></div></div></article></a>';
+                    });
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
+
                 }
 
             });
