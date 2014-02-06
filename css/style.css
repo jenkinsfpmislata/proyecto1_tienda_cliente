@@ -116,7 +116,7 @@ h1 {
     font-size:15px;
     line-height:1.2em;
 }
-.list-services a:hover {text-decoration:underline;}
+/*.list-services a:hover {text-decoration:underline;}*/
 
 /***** menu *****/
 .menu {
@@ -314,7 +314,7 @@ blockquote .padding-left {padding-left:40px;}
     background:url(../images/marker-2.gif) 0 10px no-repeat;
 }
 .list-1 li a {display:inline-block;}
-.list-1 li a:hover {text-decoration:underline;}
+/*.list-1 li a:hover {text-decoration:underline;}*/
 
 .list-2 li {
     font-size:14px; 
@@ -331,7 +331,7 @@ blockquote .padding-left {padding-left:40px;}
 .list-2 li a:hover {color:#fff;}
 .list-2 .last-item {background:none;}
 
-.link:hover {text-decoration:underline;} 
+/*.link:hover {text-decoration:underline;} */
 
 .link-1 {
     display:block; 
@@ -352,7 +352,7 @@ blockquote .padding-left {padding-left:40px;}
     cursor:pointer;
     background:url(../images/marker-2.gif) 0 6px no-repeat;
 }
-.link-2:hover {text-decoration:underline;} 
+/*.link-2:hover {text-decoration:underline;} */
 
 .text-1 {font-size:14px;} 
 .text-2 {font-size:14px; line-height:1.285em;}  
@@ -482,10 +482,10 @@ html, body {height:100%;}
     padding-left:25px;
 }
 .descripcionArticulo{
-    height: 250px;
+    height: 175px;
     width: 450px;
     position: absolute;
-    bottom: 25px;
+    bottom: 90px;
     left : 25px;
     
 }
