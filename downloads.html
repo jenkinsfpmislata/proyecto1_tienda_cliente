@@ -56,7 +56,7 @@
                     $('#contenido-categorias').html(datos2);
                 }
             });
-        }
+        };
         function filtro(idCategorias) {
             var formulario = $("form").serialize();
             $.ajax({
@@ -81,7 +81,7 @@
                     $('#contenido-categorias').html(datos2);
                 }
             });
-        }
+        };
         function unarticulo(idArticulo, idCategorias) {
             $.ajax({
                 dataType: 'json',
@@ -104,57 +104,97 @@
                     $('#contenido-categorias').html(datos2);
                 }
             });
-        }
-        //"javascript:anyadiraCarrito(data[index],'+unidades+')"
-        /////////////////   CARRITO   ////////////////////////////////////////
-        var carrito = new Array();
-
-        function anyadiraCarrito(idArticulo) {
-            var articulo = new Object();
-            $.ajax({
-                dataType: 'json',
-                url: 'php/unarticulo.php',
-                type: 'POST',
-                data: "idArticulo=" + idArticulo,
-                success: function(data) {
-                    $.each(data, function(index) {
-                        articulo.idArticle = idArticulo;
-                        articulo.nombreArticulo = data[index].nombreArticulo;
-                        articulo.precioArticulo = data[index].precioArticulo;
-                        articulo.descripcionArticulo = data[index].descripcionArticulo;
-                        articulo.unidadesArticulo = 1;
-                        
+        };
         
-                        for( i  = 0 ; i >= carrito.length ; i++){
-                            if (carrito[i] == null){
-                                carrito[index] = articulo;
-                            }else{
-                             if(carrito[i].idArticle == idArticulo){
-                                carrito[i].unidadesArticulo = carrito[i].unidadesArticulo + 1;
-                            }else{
-                                carrito[index + carrito.length] = articulo;
-                            }
-                            } 
-                        }
-                            
-                    });
+        /////////////////   CARRITO   ////////////////////////////////////////
+//--------------------------------------Objeto Factura ---------------------------------------------
+
+        function carrito(num){
+            this.numero = num;
+            this.fechaCreacion = "11/12/2012";
+            this.listaArticulos = [];
+        }
+        //metodos carrito
+// añadir un articulo a la lista de articulos: ponarticulo()
+        Carrito.prototype.ponerArticuloEnLista = function(articulo) {
+            existe = false;
+            for (i = 0; i < this.listaArticulos.length; i++) {
+                if (this.listaArticulos[i].codigo == listaArticulos.codigo) {
+                    existe = true;
+                    this.listaArticulos[i].unidades++;
+                }
+            }
+            if (existe == false) {
+                this.listaArticulos[this.listaArticulos.length] = articulo;
+            }
+        };
+// ver los articulos del carrito y el total: verarticulos()
+        Carrito.prototype.verarticulos = function(articulo) {
+            mensaje = "Numero: " + this.numero + "  Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
+
+            totalPrecio = 0;
+            for (i = 0; i < this.listaArticulos.length; i++) {
+                mensaje += "\n Codigo: " + this.listaArticulos[i].codigo + " Descripcion: " + this.listaArticulos[i].descripcion + " Precio: " + this.listaArticulos[i].precio + " Unidades: " + this.listaArticulos[i].unidades;
+                totalUnidades = this.listaArticulos[i].precio * this.listaArticulos[i].unidades;
+                totalPrecio += totalUnidades;
+            }
+            mensaje += "\n TOTAL " + totalPrecio + "€";
+            alert(mensaje);
+        };
+
+
+//--------------------------------------Objeto Articulo ---------------------------------------------
+
+        function Articulo(codigo, descripcion, precio, unidades){
+            this.codigo = codigo;
+            this.descripcion = descripcion;
+            this.precio = precio;
+            this.unidades = unidades;
+        }
+//-------------------------------------- Funciones para asociar a los botones de la pagina web
+        function articulo_nuevo(){
+//obtener los datos del artículo
+            propiedades = this.getAttribute("name");
+            codigo = propiedades.split("|")[0];
+            descripcion = propiedades.split("|")[1];
+            precio = propiedades.split("|")[2];
+            unidades = propiedades.split("|")[3];
+// crear nuevo articulo
+            articulo = new Articulo(codigo, descripcion, precio, unidades);
+// añadir el articulo a la factura
+            carrito.ponerArticuloEnLista(articulo);
+            alert("añadido");
+        }
+
+
+        function ver_articulos(){
+            carrito.verarticulos();
+// llamada al metodo del objeto factura para ver los articulos y el total
+            alert(JSON.stringify(carrito));
+        };
+
+        function mandar_carrito(){
+            carrito = JSON.stringify(Factura1);
+            alert(carrito);
+
+            $.ajax({
+                //dataType: 'json',
+                type: 'POST',
+                url: 'carrito.php',
+                data: 'datos=' + carrito,
+                success: function(data) {
+                    //$('#carrito').html(data);
+                    alert(data);
                 }
             });
         }
-
-        function vaciarCarrito() {
-
-        }
-
-        function borrarUnidad(idArticulo) {
-
-
-        }
+//---------------------------------- Funcion de carga de la pagina
+// crear la factura, el numero de factura el que querais
+        window.onload = function() {
+            carrito = new Carrito("1");
+        };
+// asignar eventos a las imagenes para que al hacer click sobre ella se añada el articulo a la factura
         
-        
-        //
-
-
     </script> 
     <body id="page4">
         <div class="extra">
