@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/grid.css" type="text/css" media="screen">
-        <script src="js/jquery-1.6.3.min.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
         <script src="js/cufon-yui.js" type="text/javascript"></script>
         <script src="js/cufon-replace.js" type="text/javascript"></script>
         <script src="js/Mate_400.font.js" type="text/javascript"></script>
@@ -31,6 +31,7 @@
                 }
             });
         });
+
         function articulos(idCategorias) {
             $.ajax({
                 dataType: 'json',
@@ -99,7 +100,7 @@
                         datos2 += '<h3 id="nombreArticulo" class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 id="precioArticulo" class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3>';
                         datos2 += '<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
                         datos2 += '<div class="box descripcionArticulo"><h3 style="padding-top:15px;padding-left:15px;">Descripcion</h3><p style="padding:20px;">' + data[index].descripcionArticulo + '</p></div>';
-                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ',' + data[index].nombre + ',' + data[index].precio+')>Añadir al carrito</a><a class="button" href="javascript:ver_articulos()">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
+                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ',' + data[index].nombre + ',' + data[index].precio + ')>Añadir al carrito</a><a class="button" href="javascript:ver_articulos()">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
                     datos2 += '';
@@ -117,7 +118,7 @@
             this.numero = num;
             this.fechaCreacion = "11/12/2012";
             this.listaArticulos = [];
-            
+
         }
         //metodos carrito
 // añadir un articulo a la lista de articulos: ponarticulo()
@@ -156,7 +157,7 @@
             this.id = id;
             this.nombre = nombre;
             this.precio = precio;
-            this.unidades=0;
+            this.unidades = 0;
         }
 //-------------------------------------- Funciones para asociar a los botones de la pagina web
         function articulo_nuevo(idArticuloNuevo, nombreArticuloNuevo, precioArticuloNuevo) {
@@ -164,7 +165,7 @@
             id = idArticuloNuevo;
             nombre = nombreArticuloNuevo;
             precio = precioArticuloNuevo;
-            
+
 // crear nuevo articulo
             articulo = new Articulo(id, nombre, precio);
 // añadir el articulo al carrito
@@ -208,13 +209,16 @@
     </script> 
     <body id="page4">
         <div class="extra">
+            <div id="form-emergente" style="display: none;">
+                <h3>HOLA</h3>
+            </div>
             <div id="carrito">
                 <div id="datos_carrito">
                     <h3>Carrito</h3>
                 </div>
                 <img src="images/carrito/logo_carrito.jpg" id="logo_carrito"></img>
                 <div id="botones_carrito">
-                    <button class="button">Comprar</button>
+                    <button class="button" id="boton_emergente">Comprar</button>
                     <button class="button">Borrar</button>
                 </div>
             </div>
