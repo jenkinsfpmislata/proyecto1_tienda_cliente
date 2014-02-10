@@ -514,3 +514,54 @@ html, body {height:100%;}
 .val-40 {background-position: -21px 0;} 
 .val-45 {background-position: 0 -21px;}
 .val-50 {background-position: 0 0;}
+
+
+#carrito{
+    z-index : 10;
+    position: fixed;
+    top:0px;
+    right: 0px;
+    border-bottom-left-radius: 15px;
+    background: #F06B10;
+    opacity: .92;
+    width: 91px;
+    height: 86px;
+    transition:width 2s, height 2s;
+    -webkit-transition:width 2s, height 2s;
+}
+#logo_carrito{
+    position: fixed;
+    top:0px;
+    right: 0px;
+    border-bottom-left-radius: 15px;
+}
+#botones_carrito{
+    visibility:hidden;
+}
+#datos_carrito{
+    visibility:hidden;
+}
+#carrito:hover{
+    width: 375px;
+    height: 500px;
+}
+#carrito:hover #logo_carrito{
+    top : 414px;
+    right: 283px;
+    border-top-right-radius: 15px;
+}
+#carrito:hover  #botones_carrito{
+    visibility:visible;
+    position: absolute;
+    bottom: 15px;
+    left:60px;
+}
+#carrito:hover  #datos_carrito{
+    visibility:visible;
+    position: absolute;
+    top:10px;
+    left: 15px;
+}
+#carrito:hover #logo_carrito{
+    visibility: hidden;
+}
