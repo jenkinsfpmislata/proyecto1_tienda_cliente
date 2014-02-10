@@ -132,6 +132,7 @@
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
+            mandar_carrito();
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verarticulos = function() {
@@ -182,15 +183,14 @@
 
         function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
-            alert(carrito1);
+            //alert(carrito1);
 
             $.ajax({
                 //dataType: 'json',
                 type: 'POST',
                 url: 'carrito.php',
-                data: 'datos=' + carrito1,
+                data: 'carrito=' + carrito1,
                 success: function(data) {
-
                     alert(data);
                 }
             });
