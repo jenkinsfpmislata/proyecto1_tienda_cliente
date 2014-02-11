@@ -14,7 +14,7 @@
     </head>
     <script>
         $(document).ready(function() {
-
+carrito = new Carrito("1");
             $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
@@ -99,7 +99,7 @@
                         datos2 += '<h3 id="nombreArticulo" class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 id="precioArticulo" class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3>';
                         datos2 += '<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
                         datos2 += '<div class="box descripcionArticulo"><h3 style="padding-top:15px;padding-left:15px;">Descripcion</h3><p style="padding:20px;">' + data[index].descripcionArticulo + '</p></div>';
-                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:ver_articulos()">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
+                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:articulos(' + idCategorias + ')">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
                     datos2 += '';
@@ -132,7 +132,7 @@
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
-            mandar_carrito();
+            
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verarticulos = function() {
@@ -181,7 +181,7 @@
         }
         ;
 
-        function mandar_carrito() {
+        /*function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
             //alert(carrito1);
 
@@ -194,12 +194,12 @@
                     alert(data);
                 }
             });
-        }
+        }*/
 //---------------------------------- Funcion de carga de la pagina
 // crear la factura, el numero de factura el que querais
-        window.onload = function() {
+        /*window.onload = function() {
             carrito = new Carrito("1");
-        };
+        };*/
 // asignar eventos a las imagenes para que al hacer click sobre ella se añada el articulo a la factura
 
     </script> 
