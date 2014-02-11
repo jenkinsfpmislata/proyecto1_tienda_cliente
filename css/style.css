@@ -526,8 +526,6 @@ html, body {height:100%;}
     opacity: .92;
     width: 91px;
     height: 86px;
-    transition:width 2s, height 2s;
-    -webkit-transition:width 2s, height 2s;
 }
 #logo_carrito{
     position: fixed;
