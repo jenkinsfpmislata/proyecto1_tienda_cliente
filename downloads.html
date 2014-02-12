@@ -16,6 +16,7 @@
     </head>
     <script>
         $(document).ready(function() {
+            
             $("#form-emergente").css("visibility", "hidden");
             $("#boton_emergente").click(function() {
                 $("#form-emergente").css("visibility", "visible");
@@ -118,6 +119,7 @@
                         datos2 += '<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
                         datos2 += '<div class="box descripcionArticulo"><h3 style="padding-top:15px;padding-left:15px;">Descripcion</h3><p style="padding:20px;">' + data[index].descripcionArticulo + '</p></div>';
                         datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ',' + data[index].nombre + ',' + data[index].precio + ')>Añadir al carrito</a><a class="button" href="javascript:ver_articulos()">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
+                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:articulos(' + idCategorias + ')">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
                     datos2 += '';
@@ -142,16 +144,15 @@
         Carrito.prototype.ponerArticuloEnLista = function(articulo) {
             existe = false;
             for (i = 0; i < this.listaArticulos.length; i++) {
-                alert("comprobando id");
                 if (this.listaArticulos[i].id == articulo.id) {
                     existe = true;
-                    this.listaArticulos[i].unidades++;
-                    alert("unidadañadida");
+                    this.listaArticulos[i].unidades++;         
                 }
             }
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
+            
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verarticulos = function() {
@@ -159,7 +160,7 @@
             totalPrecio = 0;
             for (i = 0; i < this.listaArticulos.length; i++) {
                 mensaje += "\n id " + this.listaArticulos[i].id + "|| nombre " + this.listaArticulos[i].nombre + "|| Precio: " + this.listaArticulos[i].precio + "|| Unidades: " + this.listaArticulos[i].unidades;
-                totalUnidades = this.listaArticulos[i].precio * this.listaArticulos[i].unidades;
+                totalUnidades = parseFloat(this.listaArticulos[i].precio) * parseInt(this.listaArticulos[i].unidades);
                 totalPrecio += totalUnidades;
             }
             //carrito.listaArticulos.lenght;
@@ -167,7 +168,10 @@
             alert(mensaje);
         };
 
-
+//guardar carrito en variable de sesion
+        Carrito.prototype.guardarCarritoVariableSesion=function(){
+            
+        };
 //--------------------------------------Objeto Articulo ---------------------------------------------
 
         function Articulo(id, nombre, precio) {
@@ -175,21 +179,18 @@
             this.nombre = nombre;
             this.precio = precio;
             this.unidades = 0;
+
         }
 //-------------------------------------- Funciones para asociar a los botones de la pagina web
-        function articulo_nuevo(idArticuloNuevo, nombreArticuloNuevo, precioArticuloNuevo) {
+        function articulo_nuevo(idArticuloNuevo) {
 //obtener los datos del artículo
             id = idArticuloNuevo;
-            nombre = nombreArticuloNuevo;
-            precio = precioArticuloNuevo;
-
+            nombre=$("#nombreArticulo").text();
+            precio=$("#precioArticulo").text();
 // crear nuevo articulo
             articulo = new Articulo(id, nombre, precio);
 // añadir el articulo al carrito
             carrito.ponerArticuloEnLista(articulo);
-            alert("comprobacion");
-            artic = JSON.stringify(articulo);
-            alert(artic);
             //alert("añadido Campeeeeóónnn");
         }
 
@@ -201,27 +202,26 @@
         }
         ;
 
-        function mandar_carrito() {
+        /*function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
-            alert(carrito1);
+            //alert(carrito1);
 
             $.ajax({
                 //dataType: 'json',
                 type: 'POST',
                 url: 'carrito.php',
-                data: 'datos=' + carrito1,
+                data: 'carrito=' + carrito1,
                 success: function(data) {
-
                     alert(data);
                 }
             });
-        }
+        }*/
 
 //---------------------------------- Funcion de carga de la pagina
 // crear la factura, el numero de factura el que querais
-        window.onload = function() {
+        /*window.onload = function() {
             carrito = new Carrito("1");
-        };
+        };*/
 // asignar eventos a las imagenes para que al hacer click sobre ella se añada el articulo a la factura
 
     </script> 
