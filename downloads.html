@@ -118,7 +118,6 @@
                         datos2 += '<h3 id="nombreArticulo" class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 id="precioArticulo" class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3>';
                         datos2 += '<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
                         datos2 += '<div class="box descripcionArticulo"><h3 style="padding-top:15px;padding-left:15px;">Descripcion</h3><p style="padding:20px;">' + data[index].descripcionArticulo + '</p></div>';
-                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ',' + data[index].nombre + ',' + data[index].precio + ')>Añadir al carrito</a><a class="button" href="javascript:ver_articulos()">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:articulos(' + idCategorias + ')">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
