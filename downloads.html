@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/grid.css" type="text/css" media="screen">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        <script src="js/jquery.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
         <script src="js/cufon-yui.js" type="text/javascript"></script>
         <script src="js/cufon-replace.js" type="text/javascript"></script>
@@ -16,34 +16,50 @@
     </head>
     <script>
         $(document).ready(function() {
-            $("#form-emergente").css("visibility", "hidden");
-            $("#boton_emergente").click(function() {
-                $("#form-emergente").css("visibility", "visible");
-                $("#form-emergente").dialog({
-                    modal: false,
-                    title: "Tu Carrito",
-                    buttons: {
-                        'Comprar': function() {
-                            alert("comprar");
-                        },
-                        'Cerrar': function() {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-            });
-            $("#carrito").hover(function(){
-            arts="<table id='tabla_articulos'><tr><th>Nombre</th><th>Precio</th><th>Unidades</th></tr>";
-            for (i=0;i<carrito.listaArticulos.length;i++)
+            $("#carrito").hover(function() {
+                total = 0;
+                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
+                for (i = 0; i < carrito.listaArticulos.length; i++)
                 {
-                    arts+="<tr>";
-                    arts+="<td>"+carrito.listaArticulos[i].nombre+"</td>";
-                    arts+="<td>"+carrito.listaArticulos[i].precio+"</td>";
-                    arts+="<td>"+carrito.listaArticulos[i].unidades+"</td>";
-                    arts+="</tr>";
-                    
+                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
+                    arts += "<tr>";
+                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
+                    arts += "<td><p ><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a><p></td>";
+                    arts += "</tr>";
+
                 }
-                arts+="</table>";
+                arts += "<tr id='Total_tabla'>";
+                arts += "<td><strong>Total :</strong></td>";
+                arts += "<td></td>";
+                arts += "<td>" + total + "&euro;</td>";
+                arts += "<td></td>";
+                arts += "</tr>";
+                arts += "</table>";
+                $('#ponerArticulos').html(arts);
+            });
+            $("#carrito").click(function() {
+                total = 0;
+                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
+                for (i = 0; i < carrito.listaArticulos.length; i++)
+                {
+                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
+                    arts += "<tr>";
+                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
+                    arts += "<td><p ><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a><p></td>";
+                    arts += "</tr>";
+
+                }
+                arts += "<tr id='Total_tabla'>";
+                arts += "<td><strong>Total :</strong></td>";
+                arts += "<td></td>";
+                arts += "<td>" + total + "&euro;</td>";
+                arts += "<td></td>";
+                arts += "</tr>";
+                arts += "</table>";
                 $('#ponerArticulos').html(arts);
             });
             $.ajax({
@@ -154,7 +170,8 @@
                     $('#contenido-categorias').html(datos2);
                 }
             });
-        };
+        }
+        ;
 
         /////////////////   CARRITO   ////////////////////////////////////////
 //--------------------------------------Objeto Carrito--------------------------------------
@@ -275,19 +292,17 @@
     </script> 
     <body id="page4">
         <div class="extra">
-            <div id="form-emergente"> 
-            </div>
             <div id="carrito" >
                 <div id="datos_carrito">
-                    <h3>Carrito</h3>
+                    <h3>Lista de la Compra</h3>
                 </div>
                 <div id="ponerArticulos">
 
                 </div>
                 <img src="images/carrito/logo_carrito.jpg" id="logo_carrito"></img>
                 <div id="botones_carrito">
-                    <button class="button" id="boton_emergente">Comprar</button>
-                    <button class="button">Borrar</button>
+                    <button class="button">Comprar</button>
+                    <a href="javascript:borrar_all_articulos()"><button class="button">Borrar</button></a>
                 </div>
             </div>
 
