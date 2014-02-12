@@ -32,6 +32,20 @@
                     }
                 });
             });
+            $("#carrito").hover(function(){
+            arts="<table id='tabla_articulos'><tr><th>Nombre</th><th>Precio</th><th>Unidades</th></tr>";
+            for (i=0;i<carrito.listaArticulos.length;i++)
+                {
+                    arts+="<tr>";
+                    arts+="<td>"+carrito.listaArticulos[i].nombre+"</td>";
+                    arts+="<td>"+carrito.listaArticulos[i].precio+"</td>";
+                    arts+="<td>"+carrito.listaArticulos[i].unidades+"</td>";
+                    arts+="</tr>";
+                    
+                }
+                arts+="</table>";
+                $('#ponerArticulos').html(arts);
+            });
             $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
@@ -48,8 +62,8 @@
                 }
             });
         });
-        function categorias (){
-        $.ajax({
+        function categorias() {
+            $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
                 success: function(data) {
@@ -133,16 +147,14 @@
                         datos2 += '<h3 id="nombreArticulo" class="nombreArticulo">' + data[index].nombreArticulo + '</h3><br><h3 id="precioArticulo" class="precioArticulo" >' + data[index].precioArticulo + '&euro;</h3>';
                         datos2 += '<fieldset class="val-fieldset estrellaArticulos"><legend>Calificación:</legend><span class="valoracion val-40"></span></fieldset><p></p>';
                         datos2 += '<div class="box descripcionArticulo"><h3 style="padding-top:15px;padding-left:15px;">Descripcion</h3><p style="padding:20px;">' + data[index].descripcionArticulo + '</p></div>';
-                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:articulos(' + idCategorias + ')">Volver</a><a class="button" href="javascript:ver_articulos()">verarticulos</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
+                        datos2 += '<a href="#"><a class="button" href=javascript:articulo_nuevo(' + data[index].idArticulo + ')>Añadir al carrito</a><a class="button" href="javascript:articulos(' + idCategorias + ')">Volver</a><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_unarticulo"></img></a>';
                         datos2 += '</div></div></div></article>';
                     });
                     datos2 += '';
                     $('#contenido-categorias').html(datos2);
                 }
-                //  articulos(' + idCategorias + ')
             });
-        }
-        ;
+        };
 
         /////////////////   CARRITO   ////////////////////////////////////////
 //--------------------------------------Objeto Carrito--------------------------------------
@@ -160,16 +172,16 @@
             for (i = 0; i < this.listaArticulos.length; i++) {
                 if (this.listaArticulos[i].id == articulo.id) {
                     existe = true;
-                    this.listaArticulos[i].unidades++;         
+                    this.listaArticulos[i].unidades++;
                 }
             }
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
-            
+
         };
 // ver los articulos del carrito y el total: verarticulos()
-        Carrito.prototype.verarticulos = function() {
+        Carrito.prototype.verCarrito = function() {
             mensaje = "Numero: " + this.numero + "  Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
             totalPrecio = 0;
             for (i = 0; i < this.listaArticulos.length; i++) {
@@ -183,8 +195,26 @@
         };
 
 //guardar carrito en variable de sesion
-        Carrito.prototype.guardarCarritoVariableSesion=function(){
-            
+        Carrito.prototype.borrarArticulo = function(idArticulo) {
+            for (i = 0; i < this.listaArticulos.length; i++) {
+                if (this.listaArticulos[i].id == idArticulo) {
+                    if (this.listaArticulos[i].unidades == 1) {
+                        this.listaArticulos.splice(i, 1);
+                    } else {
+                        this.listaArticulos[i].unidades--;
+                    }
+                }
+            }
+        };
+        Carrito.prototype.anadirArticulo = function(idArticulo) {
+            for (i = 0; i < this.listaArticulos.length; i++) {
+                if (this.listaArticulos[i].id == idArticulo) {
+                    this.listaArticulos[i].unidades++;
+                }
+            }
+        };
+        Carrito.prototype.borrarAllArticulos = function() {
+            this.listaArticulos.splice(0, carrito.listaArticulos.length);
         };
 //--------------------------------------Objeto Articulo ---------------------------------------------
 
@@ -199,8 +229,8 @@
         function articulo_nuevo(idArticuloNuevo) {
 //obtener los datos del artículo
             id = idArticuloNuevo;
-            nombre=$("#nombreArticulo").text();
-            precio=$("#precioArticulo").text();
+            nombre = $("#nombreArticulo").text();
+            precio = $("#precioArticulo").text();
 // crear nuevo articulo
             articulo = new Articulo(id, nombre, precio);
 // añadir el articulo al carrito
@@ -210,12 +240,18 @@
 
 
         function ver_articulos() {
-            carrito.verarticulos();
-// llamada al metodo del objeto carrito para ver los articulos y el total
-            //alert(JSON.stringify(carrito));
+            return JSON.stringify(carrito.listaArticulos);
         }
-        ;
 
+        function borrar_articulo(idArticulo) {
+            carrito.borrarArticulo(idArticulo);
+        }
+        function anadir_articulo(idArticulo) {
+            carrito.anadirArticulo(idArticulo);
+        }
+        function borrar_all_articulos() {
+            carrito.borrarAllArticulos();
+        }
         function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
             //alert(carrito1);
@@ -239,12 +275,14 @@
     </script> 
     <body id="page4">
         <div class="extra">
-            <div id="form-emergente" style="display:none;">
-                
+            <div id="form-emergente"> 
             </div>
-            <div id="carrito">
+            <div id="carrito" >
                 <div id="datos_carrito">
                     <h3>Carrito</h3>
+                </div>
+                <div id="ponerArticulos">
+
                 </div>
                 <img src="images/carrito/logo_carrito.jpg" id="logo_carrito"></img>
                 <div id="botones_carrito">

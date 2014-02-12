@@ -560,6 +560,30 @@ html, body {height:100%;}
     top:10px;
     left: 15px;
 }
+#carrito  #tabla_articulos{
+visibility: hidden;
+}
+#carrito:hover  #tabla_articulos{
+visibility: visible;
+}
 #carrito:hover #logo_carrito{
     visibility: hidden;
+}
+#tabla_articulos{
+    color:white;
+    margin:auto;
+    margin-top: 15px;
+    border: 5px;
+    text-align: center;
+    
+}
+table #tabla_articulos tbody tr th{
+    margin-right: 10px;
+}
+#ponerArticulos{
+    position:absolute;
+    top: 85px;
+    left:45px;
+    width: 300px;
+    height: 300px;  
 }
