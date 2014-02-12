@@ -15,8 +15,10 @@
         <script src="js/FF-cash.js" type="text/javascript"></script>
     </head>
     <script>
-        $(document).ready(function() {
-            
+    window.onload = function() {
+            carrito = new Carrito("1");
+        };    
+    $(document).ready(function() {
             $("#form-emergente").css("visibility", "hidden");
             $("#boton_emergente").click(function() {
                 $("#form-emergente").css("visibility", "visible");
@@ -49,7 +51,23 @@
                 }
             });
         });
-
+        function categorias (){
+        $.ajax({
+                dataType: 'json',
+                url: 'php/categorias.php',
+                success: function(data) {
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Categorias</strong></h3></center>';
+                    $.each(data, function(index) {
+                        datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                        datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                        datos2 += '</div></div></div></article></a>';
+                    });
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
+                }
+            });
+        }
         function articulos(idCategorias) {
             $.ajax({
                 dataType: 'json',
@@ -256,7 +274,7 @@
                             <li><a href="index.html">Home</a></li>
                             <li><a href="features.html">Features</a></li>
                             <li><a href="support.html">Support</a></li>
-                            <li class="active"><a href="downloads.html">Productos</a></li>
+                            <li class="active"><a href="javascript:categorias()">Productos</a></li>
                             <li class="last"><a href="contacts.html">Contacts</a></li>
                         </ul>
                     </nav>
