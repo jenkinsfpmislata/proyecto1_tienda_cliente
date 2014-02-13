@@ -26,7 +26,7 @@
                     arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
                     arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
                     arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
-                    arts += "<td><p ><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a><p></td>";
+                    arts += "<td><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a></td>";
                     arts += "</tr>";
 
                 }
@@ -39,29 +39,8 @@
                 arts += "</table>";
                 $('#ponerArticulos').html(arts);
             });
-            $("#carrito").click(function() {
-                total = 0;
-                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
-                for (i = 0; i < carrito.listaArticulos.length; i++)
-                {
-                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
-                    arts += "<tr>";
-                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
-                    arts += "<td><p ><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a><p></td>";
-                    arts += "</tr>";
-
-                }
-                arts += "<tr id='Total_tabla'>";
-                arts += "<td><strong>Total :</strong></td>";
-                arts += "<td></td>";
-                arts += "<td>" + total + "&euro;</td>";
-                arts += "<td></td>";
-                arts += "</tr>";
-                arts += "</table>";
-                $('#ponerArticulos').html(arts);
-            });
+            $("#borrarArticulo").click(RestoreCarrito);
+            $("#boton_borrar").click(RestoreCarrito);
             $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
@@ -78,6 +57,29 @@
                 }
             });
         });
+        function RestoreCarrito() {
+                total = 0;
+                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
+                for (i = 0; i < carrito.listaArticulos.length; i++)
+                {
+                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
+                    arts += "<tr>";
+                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
+                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
+                    arts += "<td><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a></td>";
+                    arts += "</tr>";
+
+                }
+                arts += "<tr id='Total_tabla'>";
+                arts += "<td><strong>Total :</strong></td>";
+                arts += "<td></td>";
+                arts += "<td>" + total + "&euro;</td>";
+                arts += "<td></td>";
+                arts += "</tr>";
+                arts += "</table>";
+                $('#ponerArticulos').html(arts);
+            }
         function categorias() {
             $.ajax({
                 dataType: 'json',
@@ -302,7 +304,7 @@
                 <img src="images/carrito/logo_carrito.jpg" id="logo_carrito"></img>
                 <div id="botones_carrito">
                     <button class="button">Comprar</button>
-                    <a href="javascript:borrar_all_articulos()"><button class="button">Borrar</button></a>
+                    <button class="button" id="boton_borrar" onclick="javascript:borrar_all_articulos()">Borrar</button>
                 </div>
             </div>
 
