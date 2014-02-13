@@ -51,7 +51,7 @@ $result2=mysql_query($SQL2) or die("Couldnt execute query.".mysql_error());
 
 $transaccionBancaria = array('userTienda' => "root", 'passwordTienda' => "root", 'codigoCuentaClienteOrigen' => "br01b001010000000001", 'codigoCuentaClienteDestino' => "br02b002020000000002", 'concepto' => "ORGULLO DE PUMA", 'total' => $total);
 
-$urladdress = "http://localhos/proyecto1_banco_server/api/TransaccionBancaria";
+$urladdress = "http://localhost/proyecto1_banco_server/api/TransaccionBancaria";
 $data = json_encode($transaccionBancaria);
 
 $ch = curl_init();
