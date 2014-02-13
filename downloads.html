@@ -173,13 +173,13 @@
             for (i = 0; i < this.listaArticulos.length; i++) {
                 if (this.listaArticulos[i].id == articulo.id) {
                     existe = true;
-                    this.listaArticulos[i].unidades++;
+                    this.listaArticulos[i].unidades++;         
                 }
             }
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
-
+            
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verCarrito = function() {
@@ -217,6 +217,18 @@
         Carrito.prototype.borrarAllArticulos = function() {
             this.listaArticulos.splice(0, carrito.listaArticulos.length);
         };
+        Carrito.prototype.verarticulos = function() {
+            mensaje = "Numero: " + this.numero + "  Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
+            totalPrecio = 0;
+            for (i = 0; i < this.listaArticulos.length; i++) {
+                mensaje += "\n id " + this.listaArticulos[i].id + "|| nombre " + this.listaArticulos[i].nombre + "|| Precio: " + this.listaArticulos[i].precio + "|| Unidades: " + this.listaArticulos[i].unidades;
+                totalUnidades = parseFloat(this.listaArticulos[i].precio) * parseInt(this.listaArticulos[i].unidades);
+                totalPrecio += totalUnidades;
+            }
+            carrito.listaArticulos.lenght;
+            mensaje += "\n TOTAL " + totalPrecio + "€";
+            alert(mensaje);
+        };
 //--------------------------------------Objeto Articulo ---------------------------------------------
 
         function Articulo(id, nombre, precio) {
@@ -230,8 +242,8 @@
         function articulo_nuevo(idArticuloNuevo) {
 //obtener los datos del artículo
             id = idArticuloNuevo;
-            nombre = $("#nombreArticulo").text();
-            precio = $("#precioArticulo").text();
+            nombre=$("#nombreArticulo").text();
+            precio=$("#precioArticulo").text();
 // crear nuevo articulo
             articulo = new Articulo(id, nombre, precio);
 // añadir el articulo al carrito
@@ -241,8 +253,10 @@
 
 
         function ver_articulos() {
-            return JSON.stringify(carrito.listaArticulos);
-        }
+            //carrito.verarticulos();
+// llamada al metodo del objeto carrito para ver los articulos y el total
+            alert(JSON.stringify(carrito));
+        };
 
         function borrar_articulo(idArticulo) {
             carrito.borrarArticulo(idArticulo);
@@ -255,15 +269,14 @@
         }
         function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
-            //alert(carrito1);
-
+            alert(carrito1);
             $.ajax({
-                //dataType: 'json',
+                dataType: 'json',
                 type: 'POST',
                 url: 'php/carrito.php',
-                data: 'carrito=' + carrito1,
+                data: 'datos=' + carrito1,
                 success: function(data) {
-                    alert(data);
+                    alert("insertado");
                 }
             });
         }
@@ -285,7 +298,7 @@
                 </div>
                 <img src="images/carrito/logo_carrito.jpg" id="logo_carrito"></img>
                 <div id="botones_carrito">
-                    <button class="button">Comprar</button>
+                    <button class="button" onclick='javascript:mandar_carrito()'>Comprar</button>
                     <button class="button" id="boton_borrar" onclick="javascript:borrar_all_articulos()">Borrar</button>
                 </div>
             </div>
