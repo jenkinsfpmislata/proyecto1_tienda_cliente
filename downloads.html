@@ -16,31 +16,11 @@
     </head>
     <script>
         $(document).ready(function() {
-            $("#carrito").hover(function() {
-                total = 0;
-                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
-                for (i = 0; i < carrito.listaArticulos.length; i++)
-                {
-                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
-                    arts += "<tr>";
-                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
-                    arts += "<td><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a></td>";
-                    arts += "</tr>";
-
-                }
-                arts += "<tr id='Total_tabla'>";
-                arts += "<td><strong>Total :</strong></td>";
-                arts += "<td></td>";
-                arts += "<td>" + total + "&euro;</td>";
-                arts += "<td></td>";
-                arts += "</tr>";
-                arts += "</table>";
-                $('#ponerArticulos').html(arts);
-            });
-            $("#borrarArticulo").click(RestoreCarrito);
-            $("#boton_borrar").click(RestoreCarrito);
+            
+            $("#boton_borrar").click(PintarCarrito);
+            $("#carrito").hover(PintarCarrito);
+            $("#carrito").click(PintarCarrito);
+            
             $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
@@ -57,8 +37,9 @@
                 }
             });
         });
-        function RestoreCarrito() {
-                total = 0;
+        function PintarCarrito() {
+        
+             total = 0;
                 arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
                 for (i = 0; i < carrito.listaArticulos.length; i++)
                 {
@@ -67,7 +48,7 @@
                     arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
                     arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
                     arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
-                    arts += "<td><a id='borrarArticulo' href='javascript:borrar_articulo("+carrito.listaArticulos[i].id+")'>X</a></td>";
+                    arts += "<td><button id='borrarArticulo' onclick='javascript:borrar_articulo(" + carrito.listaArticulos[i].id + ");javascript:PintarCarrito()'>X</button></td>";
                     arts += "</tr>";
 
                 }
@@ -79,7 +60,8 @@
                 arts += "</tr>";
                 arts += "</table>";
                 $('#ponerArticulos').html(arts);
-            }
+                $('#borrarArticulo').click(PintarCarrito);                                                   
+        }
         function categorias() {
             $.ajax({
                 dataType: 'json',
