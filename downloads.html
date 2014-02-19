@@ -16,21 +16,28 @@
     </head>
     <script>
         $(document).ready(function() {
-            
+
             $("#boton_borrar").click(PintarCarrito);
             $("#carrito").hover(PintarCarrito);
             $("#carrito").click(PintarCarrito);
-            
+
             $.ajax({
                 dataType: 'json',
                 url: 'php/categorias.php',
                 success: function(data) {
                     datos2 = '<center><h3 style="color:#ED5100"><strong>Categorias</strong></h3></center>';
                     $.each(data, function(index) {
-                        datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
-                        datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
-                        datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
-                        datos2 += '</div></div></div></article></a>';
+                        if (index === 0) {
+                            datos2 += '<a href="javascript:articulosOferta(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                            datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                            datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                            datos2 += '</div></div></div></article></a>';
+                        } else {
+                            datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                            datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                            datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                            datos2 += '</div></div></div></article></a>';
+                        }
                     });
                     datos2 += '';
                     $('#contenido-categorias').html(datos2);
@@ -38,29 +45,29 @@
             });
         });
         function PintarCarrito() {
-        
-             total = 0;
-                arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
-                for (i = 0; i < carrito.listaArticulos.length; i++)
-                {
-                    total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
-                    arts += "<tr>";
-                    arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
-                    arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
-                    arts += "<td><button id='borrarArticulo' onclick='javascript:borrar_articulo(" + carrito.listaArticulos[i].id + ");javascript:PintarCarrito()'>X</button></td>";
-                    arts += "</tr>";
 
-                }
-                arts += "<tr id='Total_tabla'>";
-                arts += "<td><strong>Total :</strong></td>";
-                arts += "<td></td>";
-                arts += "<td>" + total + "&euro;</td>";
-                arts += "<td></td>";
+            total = 0;
+            arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
+            for (i = 0; i < carrito.listaArticulos.length; i++)
+            {
+                total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
+                arts += "<tr>";
+                arts += "<td>" + carrito.listaArticulos[i].nombre + "</td>";
+                arts += "<td>" + carrito.listaArticulos[i].unidades + "</td>";
+                arts += "<td>" + carrito.listaArticulos[i].precio + "</td>";
+                arts += "<td><button id='borrarArticulo' onclick='javascript:borrar_articulo(" + carrito.listaArticulos[i].id + ");javascript:PintarCarrito()'>X</button></td>";
                 arts += "</tr>";
-                arts += "</table>";
-                $('#ponerArticulos').html(arts);
-                $('#borrarArticulo').click(PintarCarrito);                                                   
+
+            }
+            arts += "<tr id='Total_tabla'>";
+            arts += "<td><strong>Total :</strong></td>";
+            arts += "<td></td>";
+            arts += "<td>" + total + "&euro;</td>";
+            arts += "<td></td>";
+            arts += "</tr>";
+            arts += "</table>";
+            $('#ponerArticulos').html(arts);
+            $('#borrarArticulo').click(PintarCarrito);
         }
         function categorias() {
             $.ajax({
@@ -69,10 +76,17 @@
                 success: function(data) {
                     datos2 = '<center><h3 style="color:#ED5100"><strong>Categorias</strong></h3></center>';
                     $.each(data, function(index) {
-                        datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
-                        datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
-                        datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
-                        datos2 += '</div></div></div></article></a>';
+                        if (index === 0) {
+                            datos2 += '<a href="javascript:articulosOferta()"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                            datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                            datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                            datos2 += '</div></div></div></article></a>';
+                        } else {
+                            datos2 += '<a href="javascript:articulos(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                            datos2 += '<h3 class="p1">' + data[index].nombreCategoria + '</h3><br><p></p>';
+                            datos2 += '<img src="./images/categorias/' + data[index].nombreCategoria.toLowerCase() + '.jpg" id="imagen_productos"></img>';
+                            datos2 += '</div></div></div></article></a>';
+                        }
                     });
                     datos2 += '';
                     $('#contenido-categorias').html(datos2);
@@ -87,6 +101,31 @@
                 data: "idCategorias=" + idCategorias,
                 success: function(data) {
 
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
+                    datos2 += "<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
+                    datos2 += "<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos2 += '<a href="javascript:filtro(' + idCategorias + ')"><input type="button" value="Submit"></a></ul></form>';
+                    datos2 += '</div></div>';
+                    $.each(data, function(index) {
+
+                        datos2 += '<a href="javascript:unarticulo(' + data[index].idArticulo + "," + data[index].idCategorias + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
+                        datos2 += '<h3 class="p1">' + data[index].nombreArticulo + '</h3><br><h6>' + data[index].precioArticulo + '&euro;</h6><p></p>';
+                        datos2 += '<a href="#"><img src="./images/slider/' + data[index].nombreArticulo.toLowerCase() + '.jpg" id="imagen_productos"></img></a>';
+                        datos2 += '</div></div></div></article></a>';
+                    });
+                    datos2 += '';
+                    $('#contenido-categorias').html(datos2);
+                }
+            });
+        }
+        ;
+
+        function articulosOferta(idCategorias) {
+            $.ajax({
+                dataType: 'json',
+                url: 'php/ofertas.php',
+                success: function(data) {
                     datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
                     datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
                     datos2 += "<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
@@ -173,13 +212,13 @@
             for (i = 0; i < this.listaArticulos.length; i++) {
                 if (this.listaArticulos[i].id == articulo.id) {
                     existe = true;
-                    this.listaArticulos[i].unidades++;         
+                    this.listaArticulos[i].unidades++;
                 }
             }
             if (existe == false) {
                 this.listaArticulos[this.listaArticulos.length] = articulo;
             }
-            
+
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verCarrito = function() {
@@ -242,8 +281,8 @@
         function articulo_nuevo(idArticuloNuevo) {
 //obtener los datos del artículo
             id = idArticuloNuevo;
-            nombre=$("#nombreArticulo").text();
-            precio=$("#precioArticulo").text();
+            nombre = $("#nombreArticulo").text();
+            precio = $("#precioArticulo").text();
 // crear nuevo articulo
             articulo = new Articulo(id, nombre, precio);
 // añadir el articulo al carrito
@@ -256,7 +295,8 @@
             //carrito.verarticulos();
 // llamada al metodo del objeto carrito para ver los articulos y el total
             alert(JSON.stringify(carrito));
-        };
+        }
+        ;
 
         function borrar_articulo(idArticulo) {
             carrito.borrarArticulo(idArticulo);
