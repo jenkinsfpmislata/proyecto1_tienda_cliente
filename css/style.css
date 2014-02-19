@@ -108,7 +108,7 @@ h1 {
 
 .list-services {
     padding:66px 25px 0 0;
-    float:right;
+    float:left;
 }
 .list-services li {
     float:left; 
@@ -599,3 +599,5 @@ visibility: visible;
     color: red;
     text-decoration:none;
 }
+
+.mover{margin-right: 200px}

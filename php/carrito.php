@@ -4,7 +4,6 @@ $carrito= new stdClass();
 $carrito = json_decode($carritoJson);
 $total = 0;
 
-$numero = $carrito->numero;//guardamos en la variable numero el contenido de numero del carrito
 $fechaCreacion = $carrito->fechaCreacion;//guadamos la fecha creacion del carrito
 $listaArticulos = $carrito->listaArticulos;//guardamos la lista de articulos del carrito
 
@@ -22,7 +21,7 @@ foreach ($listaArticulos as $articulo) {//realizar insert por cada articulo
 if($total != 0){
 $SQL = "INSERT INTO `proyecto1_tienda_servidor`.`pedidos` 
         (`idPedido`, `Fecha`, `Usuario`, `Estado`, `PrecioTotal`) 
-VALUES (NULL,'2014-12-12','1','ESPERA','".$total."');";
+VALUES (NULL,'".$fechaCreacion."','1','ESPERA','".$total."');";
 }else{
    
 }

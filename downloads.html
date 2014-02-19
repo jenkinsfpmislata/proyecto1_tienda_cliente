@@ -16,7 +16,7 @@
     </head>
     <script>
         $(document).ready(function() {
-
+            carrito = new Carrito();
             $("#boton_borrar").click(PintarCarrito);
             $("#carrito").hover(PintarCarrito);
             $("#carrito").click(PintarCarrito);
@@ -199,9 +199,9 @@
         /////////////////   CARRITO   ////////////////////////////////////////
 //--------------------------------------Objeto Carrito--------------------------------------
 
-        function Carrito(num) {
-            this.numero = num;
-            this.fechaCreacion = "11/12/2012";
+        function Carrito() {
+            fecha = new Date();
+            this.fechaCreacion = fecha.getFullYear() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getDate();
             this.listaArticulos = [];
 
         }
@@ -222,7 +222,7 @@
         };
 // ver los articulos del carrito y el total: verarticulos()
         Carrito.prototype.verCarrito = function() {
-            mensaje = "Numero: " + this.numero + "  Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
+            mensaje = "Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
             totalPrecio = 0;
             for (i = 0; i < this.listaArticulos.length; i++) {
                 mensaje += "\n id " + this.listaArticulos[i].id + "|| nombre " + this.listaArticulos[i].nombre + "|| Precio: " + this.listaArticulos[i].precio + "|| Unidades: " + this.listaArticulos[i].unidades;
@@ -257,7 +257,7 @@
             this.listaArticulos.splice(0, carrito.listaArticulos.length);
         };
         Carrito.prototype.verarticulos = function() {
-            mensaje = "Numero: " + this.numero + "  Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
+            mensaje = "Fecha de Creacion: " + this.fechaCreacion + "  Nº de articulos:" + this.listaArticulos.length + "\n ARTICULOS:";
             totalPrecio = 0;
             for (i = 0; i < this.listaArticulos.length; i++) {
                 mensaje += "\n id " + this.listaArticulos[i].id + "|| nombre " + this.listaArticulos[i].nombre + "|| Precio: " + this.listaArticulos[i].precio + "|| Unidades: " + this.listaArticulos[i].unidades;
@@ -323,9 +323,6 @@
 
 //---------------------------------- Funcion de carga de la pagina
 // crear la factura, el numero de factura el que querais
-        window.onload = function() {
-            carrito = new Carrito("1");
-        };
     </script> 
     <body id="page4">
         <div class="extra">
@@ -346,12 +343,12 @@
             <div class="main">
                 <!--==============================header=================================-->
                 <header>
-                    <div class="wrapper p2" >
+                    <div class="wrapper p2 mover" >
                         <h1><a href="index.html" id="logo">Software</a></h1>
                         <ul class="list-services">
                             <li><a href="#" id="prueba">Site Map</a></li>
                             <li><a href="#">Help</a></li>
-                            <li><a href="#">FAQs</a></li>
+                            <a href="login.html">Login</a>             
                         </ul>
                     </div>
                     <nav>
