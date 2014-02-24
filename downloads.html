@@ -203,7 +203,6 @@
             fecha = new Date();
             this.fechaCreacion = fecha.getFullYear() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getDate();
             this.listaArticulos = [];
-
         }
         //metodos carrito
 // añadir un articulo a la lista de articulos: ponarticulo()
@@ -309,7 +308,6 @@
         }
         function mandar_carrito() {
             carrito1 = JSON.stringify(carrito);
-            alert(carrito1);
             $.ajax({
                 dataType: 'json',
                 type: 'POST',
@@ -320,9 +318,6 @@
                 }
             });
         }
-
-//---------------------------------- Funcion de carga de la pagina
-// crear la factura, el numero de factura el que querais
     </script> 
     <body id="page4">
         <div class="extra">
