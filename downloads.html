@@ -25,7 +25,7 @@
                 dataType: 'json',
                 url: 'php/categorias.php',
                 success: function(data) {
-                    datos2 = '<center><h3 style="color:#ED5100"><strong>Categorias</strong></h3></center>';
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Categories</strong></h3></center>';
                     $.each(data, function(index) {
                         if (index === 0) {
                             datos2 += '<a href="javascript:articulosOferta(' + data[index].idCategoria + ')"><article class="grid_3" id="articulos"><div class="box"><div class="padding"><div ><div class="padding-left">';
@@ -47,7 +47,7 @@
         function PintarCarrito() {
 
             total = 0;
-            arts = "<table id='tabla_articulos'><tr><th>Nombre</th><th>Unidades</th><th>Precio</th><th>Opciones</th></tr>";
+            arts = "<table id='tabla_articulos'><tr><th>Name</th><th>Unidades</th><th>Price</th><th>Options</th></tr>";
             for (i = 0; i < carrito.listaArticulos.length; i++)
             {
                 total = total + parseFloat(carrito.listaArticulos[i].precio) * parseInt(carrito.listaArticulos[i].unidades);
@@ -102,9 +102,9 @@
                 success: function(data) {
 
                     datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
-                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
-                    datos2 += "<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
-                    datos2 += "<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filter</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
+                    datos2 += "<li>Min. price <input type='text' name='precio_min' value='0' /></li><li>Max. price <input type='text' name='precio_max' value='9999'/></li>";
+                    datos2 += "<li>Order price <select name='ord_precio'><option selected>-Choose an option-</option><option value='DESC'>Descendent</option><option value='ASC'>Ascendent</option></select></li>";
                     datos2 += '<a href="javascript:filtro(' + idCategorias + ')"><input type="button" value="Submit"></a></ul></form>';
                     datos2 += '</div></div>';
                     $.each(data, function(index) {
@@ -126,10 +126,10 @@
                 dataType: 'json',
                 url: 'php/ofertas.php',
                 success: function(data) {
-                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
-                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
-                    datos2 += "<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
-                    datos2 += "<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articles</strong></h3></center>';
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filter</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
+                    datos2 += "<li>Min. price <input type='text' name='precio_min' value='0' /></li><li>Max. price <input type='text' name='precio_max' value='9999'/></li>";
+                    datos2 += "<li>Order price <select name='ord_precio'><option selected>-Choose an option-</option><option value='DESC'>Descendent</option><option value='ASC'>Ascendent</option></select></li>";
                     datos2 += '<a href="javascript:filtro(' + idCategorias + ')"><input type="button" value="Submit"></a></ul></form>';
                     datos2 += '</div></div>';
                     $.each(data, function(index) {
@@ -153,10 +153,10 @@
                 type: 'POST',
                 data: "idCategorias=" + idCategorias + "&" + formulario,
                 success: function(data) {
-                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articulos</strong></h3></center>';
-                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filtro</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
-                    datos2 += "<li>Precio minimo <input type='text' name='precio_min' value='0' /></li><li>Precio maximo <input type='text' name='precio_max' value='9999'/></li>";
-                    datos2 += "<li>Ordenar Precio <select name='ord_precio'><option selected>-Elige una opcion-</option><option value='DESC'>Descendente</option><option value='ASC'>Ascendente</option></select></li>";
+                    datos2 = '<center><h3 style="color:#ED5100"><strong>Articles</strong></h3></center>';
+                    datos2 = ' <div class="box"style="width:300px;padding : 10px;margin : 10px;float:right;"><h3>Filter</h3><ul class="nav nav-stacked nav-pills"><form><ul class="list-2">';
+                    datos2 += "<li>Min. price <input type='text' name='precio_min' value='0' /></li><li>Max. price <input type='text' name='precio_max' value='9999'/></li>";
+                    datos2 += "<li>Order price <select name='ord_precio'><option selected>-Choose an option-</option><option value='DESC'>Descendent</option><option value='ASC'>Ascendent</option></select></li>";
                     datos2 += '<a href="javascript:filtro(' + idCategorias + ')"><input type="button" value="Submit"></a></ul></form>';
                     datos2 += '</div></div>';
                     $.each(data, function(index) {
@@ -323,7 +323,7 @@
         <div class="extra">
             <div id="carrito" >
                 <div id="datos_carrito">
-                    <h3>Lista de la Compra</h3>
+                    <h3>Cart</h3>
                 </div>
                 <div id="ponerArticulos">
 
